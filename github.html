@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexaStore | Smart Shopping</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f7f8fc;
+    color: #172033;
+}
+
+header {
+    background: #101a30;
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: #68e0cf;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #68e0cf;
+}
+
+.cart {
+    background: #68e0cf;
+    color: #101a30;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.hero {
+    padding: 85px 8%;
+    background: linear-gradient(120deg, #101a30, #253d61);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.hero-content {
+    max-width: 550px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #68e0cf;
+}
+
+.hero p {
+    color: #d2d9e5;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.hero button, .subscribe button {
+    background: #68e0cf;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hero-art {
+    font-size: 125px;
+    background: #ffffff15;
+    border-radius: 25px;
+    padding: 35px;
+}
+
+.section {
+    padding: 65px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #788397;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+#search {
+    flex: 1;
+    min-width: 200px;
+    padding: 13px;
+    border: 1px solid #dce1e9;
+    border-radius: 8px;
+    outline: none;
+}
+
+#category {
+    padding: 13px;
+    border: 1px solid #dce1e9;
+    border-radius: 8px;
+    background: white;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.product {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px #1720330b;
+    transition: 0.3s;
+}
+
+.product:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px #17203315;
+}
+
+.product-image {
+    height: 185px;
+    background: #edf2f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 75px;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-info small {
+    color: #159b8b;
+    font-weight: bold;
+}
+
+.product-info h3 {
+    margin: 9px 0;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 14px 0;
+}
+
+.add-btn {
+    width: 100%;
+    padding: 12px;
+    background: #101a30;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: #159b8b;
+}
+
+.no-results {
+    text-align: center;
+    grid-column: 1 / -1;
+    color: #788397;
+    padding: 30px;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.feature {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.feature span {
+    font-size: 35px;
+}
+
+.feature h3 {
+    margin: 12px 0;
+}
+
+.feature p {
+    color: #788397;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.subscribe {
+    background: #e8f5f3;
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.subscribe h2 {
+    margin-bottom: 12px;
+}
+
+.subscribe p {
+    color: #647184;
+    margin-bottom: 20px;
+}
+
+.subscribe input {
+    padding: 14px;
+    width: min(280px, 60%);
+    border: 1px solid #dce1e9;
+    border-radius: 7px;
+}
+
+footer {
+    background: #101a30;
+    color: #d2d9e5;
+    text-align: center;
+    padding: 25px;
+    font-size: 14px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #101a30;
+    color: white;
+    padding: 15px 22px;
+    border-radius: 8px;
+    display: none;
+    z-index: 20;
+}
+
+@media(max-width: 650px) {
+    header {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    nav a {
+        margin-left: 10px;
+    }
+    .hero {
+        padding: 60px 7%;
+    }
+    .hero-art {
+        font-size: 80px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">NexaStore.</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#features">About</a>
+    </nav>
+    <div class="cart">Cart: <span id="cart-count">0</span></div>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Discover Products.<br><span>Experience Better.</span></h1>
+        <p>
+            Explore quality products, discover new favourites
+            and enjoy a smarter shopping experience with NexaStore.
+        </p>
+        <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+            Explore Products →
+        </button>
+    </div>
+    <div class="hero-art">🛍️</div>
+</section>
+
+<section class="section" id="products">
+    <div class="section-title">
+        <h2>Featured Products</h2>
+        <p>Explore our handpicked collection</p>
+    </div>
+
+    <div class="controls">
+        <input type="text" id="search" placeholder="Search products...">
+        <select id="category">
+            <option value="All">All Categories</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Lifestyle">Lifestyle</option>
+        </select>
+    </div>
+
+    <div class="products" id="product-list"></div>
+</section>
+
+<section class="section" id="features">
+    <div class="section-title">
+        <h2>Why Choose NexaStore?</h2>
+        <p>Shopping made simple and convenient</p>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <span>🚚</span>
+            <h3>Fast Delivery</h3>
+            <p>Convenient delivery experience for your orders.</p>
+        </div>
+        <div class="feature">
+            <span>🔒</span>
+            <h3>Secure Shopping</h3>
+            <p>A simple and user-friendly shopping interface.</p>
+        </div>
+        <div class="feature">
+            <span>⭐</span>
+            <h3>Quality Products</h3>
+            <p>Discover carefully selected products.</p>
+        </div>
+    </div>
+</section>
+
+<section class="subscribe">
+    <h2>Stay Updated With NexaStore</h2>
+    <p>Subscribe to receive our latest product updates.</p>
+    <form id="subscribe-form">
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+    </form>
+</section>
+
+<footer>
+    <p>© 2026 NexaStore. All Rights Reserved.</p>
+    <p>Designed & Developed as a Web Development Project.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+    {name:"Wireless Headphones", category:"Electronics", price:2499, icon:"🎧"},
+    {name:"Smart Watch", category:"Electronics", price:3299, icon:"⌚"},
+    {name:"Bluetooth Speaker", category:"Electronics", price:1799, icon:"🔊"},
+    {name:"Classic Sneakers", category:"Fashion", price:1999, icon:"👟"},
+    {name:"Premium Backpack", category:"Fashion", price:1499, icon:"🎒"},
+    {name:"Minimal Watch", category:"Fashion", price:2199, icon:"⌚"},
+    {name:"Coffee Mug", category:"Lifestyle", price:499, icon:"☕"},
+    {name:"Desk Lamp", category:"Lifestyle", price:899, icon:"💡"}
+];
+
+let cartCount = 0;
+
+const productList = document.getElementById("product-list");
+const search = document.getElementById("search");
+const category = document.getElementById("category");
+
+function displayProducts() {
+    const searchValue = search.value.toLowerCase();
+    const categoryValue = category.value;
+
+    const filtered = products.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchValue);
+        const matchesCategory = categoryValue === "All" ||
+                                product.category === categoryValue;
+        return matchesSearch && matchesCategory;
+    });
+
+    productList.innerHTML = "";
+
+    if (filtered.length === 0) {
+        productList.innerHTML =
+            '<p class="no-results">No products found. Try another search.</p>';
+        return;
+    }
+
+    filtered.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product";
+
+        const image = document.createElement("div");
+        image.className = "product-image";
+        image.textContent = product.icon;
+
+        const info = document.createElement("div");
+        info.className = "product-info";
+
+        const label = document.createElement("small");
+        label.textContent = product.category;
+
+        const name = document.createElement("h3");
+        name.textContent = product.name;
+
+        const price = document.createElement("div");
+        price.className = "price";
+        price.textContent = "₹" + product.price.toLocaleString("en-IN");
+
+        const button = document.createElement("button");
+        button.className = "add-btn";
+        button.textContent = "Add to Cart";
+        button.addEventListener("click", () => addToCart(product.name));
+
+        info.append(label, name, price, button);
+        card.append(image, info);
+        productList.appendChild(card);
+    });
+}
+
+function addToCart(name) {
+    cartCount++;
+    document.getElementById("cart-count").textContent = cartCount;
+    showToast(name + " added to cart!");
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => {
+        toast.style.display = "none";
+    }, 2500);
+}
+
+search.addEventListener("input", displayProducts);
+category.addEventListener("change", displayProducts);
+
+document.getElementById("subscribe-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    showToast("Thank you for subscribing!");
+    this.reset();
+});
+
+displayProducts();
+</script>
+
+</body>
+</html>
